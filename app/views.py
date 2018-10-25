@@ -1,18 +1,15 @@
+
 from flask import Flask, request, redirect, abort, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
-
 import os
+
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///.\\demo.db"
+uri =  "sqlite:///" + os.path.join(os.getcwd(), "demo.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = uri
 db = SQLAlchemy(app)
 
 
-class User(db.Model):
-    __tablename__ = 'user'
 
-    user_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(256))
-    password = db.Column(db.String(256))
 
 db.create_all()
 
@@ -63,5 +60,3 @@ def login():
     })
 
 
-if __name__ == '__main__':
-    app.run()
