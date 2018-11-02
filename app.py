@@ -12,6 +12,12 @@ def app_before_request():
     print("HTTP {}  {}".format(request.method, request.url))
 
 
+@app.after_request
+def app_after_request(response):
+    response.headers["From"] = "Ncuhome"
+    return response
+
+
 class User(db.Model):
     __tablename__ = "users"
 
