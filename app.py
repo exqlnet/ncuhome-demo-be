@@ -128,5 +128,18 @@ def change_desc():
     })
 
 
+@app.route("/list", methods=["GET"])
+def user_list():
+    users = User.query.all()
+    data = []
+    for user in users:
+        data.append({
+            "user_id": user.user_id,
+            "username": user.username,
+            "desc": user.desc,
+        })
+    return jsonify(data)
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=5000)
